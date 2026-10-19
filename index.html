@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffe8f1">
+<title>Surat Kecil Buat Lu ♡</title>
+
+<style>
+:root {
+  --pink: #f3a6c4;
+  --pink-dark: #d76596;
+  --deep: #b54c7b;
+  --ink: #684555;
+  --muted: #9b7889;
+  --paper: #fffafd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(135deg, #ffe4ef, #fff8fb 52%, #fbd7e7);
+  display: grid;
+  place-items: center;
+  padding: 22px 13px;
+  overflow-x: hidden;
+}
+
+button { font: inherit; cursor: pointer; }
+
+.wrap {
+  width: min(100%, 690px);
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  text-align: center;
+  color: var(--deep);
+  font-size: .76rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.card {
+  background: #ffffffdf;
+  border: 1px solid white;
+  border-radius: 28px;
+  padding: clamp(20px, 5vw, 38px);
+  box-shadow: 0 18px 55px #bc5b8424;
+  backdrop-filter: blur(10px);
+}
+
+.icon-heart {
+  display: grid;
+  place-items: center;
+  margin: 0 auto 15px;
+  width: 55px;
+  height: 55px;
+  background: #fff0f6;
+  border-radius: 18px;
+  color: var(--pink-dark);
+  font-size: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: var(--deep);
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  margin: 0 0 10px;
+}
+
+.intro {
+  text-align: center;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 auto 25px;
+}
+
+.envelope-area { text-align: center; }
+
+.envelope {
+  position: relative;
+  display: block;
+  width: min(260px, 76vw);
+  height: 158px;
+  margin: 25px auto 19px;
+  border: 0;
+  border-radius: 12px;
+  background: #f1a0bf;
+  box-shadow: 0 12px 25px #c55e8a26;
+  transition: transform .25s;
+}
+
+.envelope:hover { transform: translateY(-3px); }
+
+.back {
+  position: absolute;
+  inset: 0;
+  background: #f8c4d8;
+  border-radius: 12px;
+}
+
+.letter-preview {
+  position: absolute;
+  left: 9%;
+  width: 82%;
+  height: 82%;
+  bottom: 4%;
+  background: white;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--deep);
+  font-weight: bold;
+  transition: transform .75s;
+}
+
+.front {
+  position: absolute;
+  inset: 0;
+  background: #ef9dbd;
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 12px;
+}
+
+.flap {
+  position: absolute;
+  inset: 0;
+  background: #f9c5d9;
+  clip-path: polygon(0 0, 100% 0, 50% 59%);
+  transform-origin: top;
+  transition: transform .65s, opacity .5s;
+}
+
+.seal {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 51%;
+  transform: translate(-50%, -10%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: var(--pink-dark);
+  font-size: 25px;
+  transition: opacity .25s;
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+  opacity: .15;
+}
+
+.envelope.open .letter-preview {
+  transform: translateY(-95px);
+  z-index: 3;
+}
+
+.envelope.open .seal { opacity: 0; }
+
+.hint {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: bold;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px #c55e8a24;
+}
+
+.primary { background: var(--pink-dark); color: white; }
+
+.secondary {
+  background: #fff0f6;
+  color: var(--deep);
+  border: 1px solid #f2c7d9;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.letter-content {
+  display: none;
+  margin-top: 25px;
+  padding: clamp(19px, 4vw, 30px);
+  background: var(--paper);
+  border: 1px dashed #e9a8c3;
+  border-radius: 20px;
+  line-height: 1.9;
+  animation: appear .6s ease both;
+}
+
+.letter-content.show { display: block; }
+.letter-content p { margin: 0 0 16px; }
+
+.greeting {
+  color: var(--deep);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.signature {
+  text-align: right;
+  color: var(--deep);
+  font-weight: bold;
+  margin-top: 24px;
+}
+
+/* PESAN TEMBAKAN */
+.secret {
+  display: none;
+  margin-top: 24px;
+  padding: 22px 17px;
+  border-radius: 18px;
+  text-align: center;
+  background: linear-gradient(145deg, #fff0f6, #ffe2ee);
+  border: 1px solid #f4c5d8;
+}
+
+.secret.show {
+  display: block;
+  animation: confessionAppear 1s ease both;
+}
+
+.confession-intro {
+  color: #a35b7b;
+  font-size: 1rem;
+  animation: fadeUp 1.2s ease both;
+}
+
+.confession-heart {
+  font-size: 48px;
+  display: block;
+  margin: 15px auto;
+  animation: heartBeat 1.1s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px #f39abd);
+}
+
+.confession-question {
+  font-size: clamp(1.2rem, 5vw, 1.7rem);
+  color: var(--deep);
+  font-weight: bold;
+  line-height: 1.6;
+  animation: questionReveal 1.5s ease both;
+}
+
+.confession-glow {
+  padding: 10px;
+  border-radius: 15px;
+  animation: pinkGlow 2s ease-in-out infinite;
+  color: var(--deep);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.burst-heart {
+  position: fixed;
+  z-index: 999;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  font-size: 23px;
+  animation: heartBurst 1.8s ease-out forwards;
+}
+
+.cinematic-dim { animation: screenDim 1s ease both; }
+
+.music-box {
+  margin-top: 25px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff4f8;
+  border: 1px solid #f5d2e0;
+  text-align: center;
+}
+
+.music-box h3 {
+  color: var(--deep);
+  margin: 0 0 8px;
+}
+
+.music-box p {
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.music-box iframe {
+  width: 100%;
+  max-width: 420px;
+  height: 210px;
+  border: 0;
+  border-radius: 13px;
+  margin-top: 12px;
+}
+
+.hidden { display: none !important; }
+
+.bottom-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.6;
+  margin-top: 22px;
+}
+
+.footer {
+  text-align: center;
+  font-size: .76rem;
+  color: #ad7890;
+  margin-top: 15px;
+}
+
+.float-heart {
+  position: fixed;
+  bottom: -35px;
+  z-index: 0;
+  pointer-events: none;
+  color: #df78a3;
+  opacity: 0;
+  animation: rise var(--duration, 9s) linear forwards;
+}
+
+@keyframes rise {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  10% { opacity: .65; }
+  100% { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confessionAppear {
+  from { opacity: 0; transform: scale(.88) translateY(25px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.2); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.14); }
+  60% { transform: scale(1); }
+}
+
+@keyframes questionReveal {
+  0% { opacity: 0; transform: scale(.75); filter: blur(8px); }
+  70% { opacity: 1; transform: scale(1.04); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes pinkGlow {
+  0%, 100% { box-shadow: 0 0 10px #f5a5c455; }
+  50% { box-shadow: 0 0 28px #f5a5c4bb; }
+}
+
+@keyframes heartBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(.3) rotate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--x)),
+      calc(-50% + var(--y))
+    ) scale(1.4) rotate(var(--r));
+  }
+}
+
+@keyframes screenDim {
+  0% { filter: brightness(1); }
+  40% { filter: brightness(.78); }
+  100% { filter: brightness(1); }
+}
+
+@media (max-width: 420px) {
+  .card { border-radius: 23px; }
+  .button-row .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+  <p class="eyebrow">a little letter, from me to you</p>
+
+  <section class="card">
+    <div class="icon-heart">♡</div>
+
+    <h1>Surat kecil buat lu</h1>
+
+    <p class="intro">
+      Ada beberapa hal yang pengen gw sampein dengan jujur.
+      Baca kalau lu udah siap, ya.
+    </p>
+
+    <div class="envelope-area">
+      <button class="envelope" id="envelope" aria-label="Buka amplop">
+        <span class="back"></span>
+        <span class="letter-preview">buat lu ♡</span>
+        <span class="front"></span>
+        <span class="flap"></span>
+        <span class="seal">♡</span>
+      </button>
+
+      <p class="hint" id="hint">ketuk amplopnya buat buka ♡</p>
+
+      <button class="btn primary" id="openBtn">Buka surat ♡</button>
+    </div>
+
+    <article class="letter-content" id="letter">
+      <p class="greeting">Hai, lu 🤍</p>
+
+      <p>
+        Gw mau minta maaf karena udah bikin perasaan lu gantung
+        dan bikin lu kecewa. Gw sadar sikap gw mungkin bikin lu
+        bingung, capek, atau ngerasa kalau perasaan lu nggak gw
+        anggap serius. Maaf ya, gw nggak seharusnya bikin lu
+        terus nebak-nebak.
+      </p>
+
+      <p>
+        Jujur, gw sendiri masih berusaha memahami perasaan gw.
+        Ada bagian dari diri gw yang pengen tetap dekat sama lu,
+        dan gw nggak mau bohong soal itu. Tapi gw juga masih
+        punya rasa takut dan keraguan yang belum sepenuhnya
+        gw pahami. Gw nggak mau asal bilang sesuatu cuma supaya
+        lu nggak kecewa, lalu malah bikin lu makin sakit hati.
+      </p>
+
+      <p>
+        Bukan berarti perasaan lu nggak penting buat gw.
+        Justru karena gw menghargai lu, gw pengen jujur daripada
+        ngasih janji yang belum tentu bisa gw tepati. Gw ngerti
+        kalau kata maaf aja nggak langsung memperbaiki semuanya,
+        jadi gw mau belajar buat lebih jelas dan bertanggung jawab
+        sama sikap gw.
+      </p>
+
+      <p>
+        Lu nggak harus langsung maafin gw atau langsung ngerasa
+        baik-baik aja. Kalau lu butuh waktu, gw ngerti. Gw cuma
+        berharap kita bisa ngobrol jujur saat lu udah siap,
+        tanpa ada yang harus pura-pura baik-baik aja.
+      </p>
+
+      <p>
+        Makasih karena udah jujur sama perasaan lu. Sekali lagi,
+        gw minta maaf ya. Gw nggak bisa janji bakal langsung punya
+        semua jawabannya sekarang, tapi gw bisa berusaha buat
+        nggak mempermainkan perasaan lu dan nggak sengaja bikin
+        lu terus menunggu tanpa kejelasan.
+      </p>
+
+      <div class="signature">— dari gw, dengan tulus ♡</div>
+
+      <div class="button-row">
+        <button class="btn primary" id="secretBtn">
+          Ada satu hal lagi... 💌
+        </button>
+      </div>
+
+      <div class="secret" id="secret">
+        <p class="confession-intro">
+          Sebenernya, ada satu hal yang udah lama pengen gw bilang...
+        </p>
+
+        <span class="confession-heart">💗</span>
+
+        <p>
+          Gw nyaman sama lu, gw seneng bisa kenal lu,
+          dan ternyata perasaan gw ke lu lebih dari sekadar biasa.
+        </p>
+
+        <p class="confession-glow">Gw suka sama lu. ❤️</p>
+
+        <p class="confession-question">
+          Lu mau nggak jadi pacar gw? ♡
+        </p>
+
+        <p>
+          Gw pengen kita coba jalanin ini bareng-bareng,
+          pelan-pelan dan saling jujur. Gw nggak janji bakal
+          jadi orang yang sempurna, tapi gw pengen belajar
+          menghargai perasaan lu dan hubungan ini.
+        </p>
+
+        <p>
+          Lu nggak harus jawab sekarang. Pikirin dulu kalau
+          memang perlu. Apa pun jawaban lu, gw bakal berusaha
+          menghargai keputusan lu. 🤍
+        </p>
+
+        <p style="margin-top:18px;font-weight:bold;color:#b54c7b">
+          — jadi, gimana jawaban lu? ♡
+        </p>
+
+        <div class="button-row">
+          <button class="btn primary" id="replyBtn">
+            Balas lewat WhatsApp 💌
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <div class="music-box">
+      <h3>♫ Lagu buat lu</h3>
+      <p>
+        Sempurna — Andra and The Backbone ♡<br>
+        Putar lagunya sambil baca surat ini.
+      </p>
+
+      <button class="btn secondary" id="musicBtn">
+        Putar Sempurna ♫
+      </button>
+
+      <div id="musicPlayer" class="hidden">
+        <iframe
+          id="songFrame"
+          title="Sempurna - Andra and The Backbone"
+          src=""
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <p>Kalau lagu tidak muncul, coba buka melalui YouTube.</p>
+      </div>
+    </div>
+
+    <p class="bottom-note">
+      nggak harus sempurna buat bisa jujur. pelan-pelan aja ♡
+    </p>
+  </section>
+
+  <p class="footer">made with a little courage & sincerity ♡</p>
+</main>
+
+<script>
+const envelope = document.getElementById("envelope");
+const openBtn = document.getElementById("openBtn");
+const letter = document.getElementById("letter");
+const hint = document.getElementById("hint");
+const secretBtn = document.getElementById("secretBtn");
+const secret = document.getElementById("secret");
+const replyBtn = document.getElementById("replyBtn");
+const musicBtn = document.getElementById("musicBtn");
+const musicPlayer = document.getElementById("musicPlayer");
+const songFrame = document.getElementById("songFrame");
+
+let opened = false;
+let secretOpened = false;
+
+function floatHeart() {
+  const heart = document.createElement("span");
+  heart.className = "float-heart";
+  heart.textContent = ["♡", "♥", "✧", "୨୧"][
+    Math.floor(Math.random() * 4)
+  ];
+  heart.style.left = Math.random() * 95 + "vw";
+  heart.style.fontSize = 14 + Math.random() * 18 + "px";
+  heart.style.setProperty("--duration", 7 + Math.random() * 5 + "s");
+
+  document.body.appendChild(heart);
+  heart.addEventListener("animationend", () => heart.remove());
+}
+
+function openLetter() {
+  if (opened) return;
+
+  opened = true;
+  envelope.classList.add("open");
+  letter.classList.add("show");
+  hint.textContent = "suratnya terbuka, baca kalau lu udah siap ♡";
+  openBtn.textContent = "Surat terbuka ♡";
+  openBtn.disabled = true;
+
+  for (let i = 0; i < 12; i++) {
+    setTimeout(floatHeart, i * 180);
+  }
+
+  setTimeout(() => {
+    letter.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 350);
+}
+
+function burstHearts() {
+  const symbols = ["💗", "💕", "♡", "💖", "✨", "❤️"];
+
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("span");
+    heart.className = "burst-heart";
+    heart.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 100 + Math.random() * 240;
+
+    heart.style.setProperty("--x", Math.cos(angle) * distance + "px");
+    heart.style.setProperty("--y", Math.sin(angle) * distance + "px");
+    heart.style.setProperty("--r", (Math.random() * 100 - 50) + "deg");
+
+    document.body.appendChild(heart);
+    heart.addEventListener("animationend", () => heart.remove());
+  }
+}
+
+function toggleSecret() {
+  secretOpened = !secretOpened;
+  secret.classList.toggle("show", secretOpened);
+
+  secretBtn.textContent = secretOpened
+    ? "Tutup pesan rahasia ♡"
+    : "Ada satu hal lagi... 💌";
+
+  if (secretOpened) {
+    burstHearts();
+    document.body.classList.add("cinematic-dim");
+
+    setTimeout(() => {
+      document.body.classList.remove("cinematic-dim");
+    }, 1000);
+
+    setTimeout(() => {
+      secret.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }, 250);
+  }
+}
+
+function reply() {
+  const message =
+    "Gw udah baca surat lu. Makasih udah jujur sama gw. Gw pengen kita ngobrol baik-baik tentang ini. 🤍";
+
+  const url = "https://wa.me/?text=" + encodeURIComponent(message);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function playSong() {
+  musicPlayer.classList.remove("hidden");
+
+  if (!songFrame.src) {
+    songFrame.src =
+      "https://www.youtube-nocookie.com/embed/jStNaVCW838?autoplay=1&rel=0";
+  }
+
+  musicBtn.textContent = "Lagu Sempurna ♡";
+
+  musicPlayer.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
+}
+
+envelope.addEventListener("click", openLetter);
+openBtn.addEventListener("click", openLetter);
+secretBtn.addEventListener("click", toggleSecret);
+replyBtn.addEventListener("click", reply);
+musicBtn.addEventListener("click", playSong);
+</script>
+</body>
+  </html>
+  
